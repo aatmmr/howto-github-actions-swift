@@ -1,0 +1,13 @@
+name: XCode Workflow
+
+on:
+  push:
+    branches: xcode-workflow
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build
+    runs-on: macos-latest
+    steps:
+      - run: echo "Building..."
