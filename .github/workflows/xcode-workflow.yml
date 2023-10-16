@@ -1,4 +1,4 @@
-name: XCode Workflow
+name: Xcode Workflow
 
 on:
   push:
