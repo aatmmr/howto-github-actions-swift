@@ -18,6 +18,7 @@ jobs:
       DESTINATION: generic/platform=iOS
       SDK: iphoneos
     steps:
+      - run: ls -la
       - run: |
           xcodebuild -workspace $WORKSPACE \
           -scheme $SCHEME \
