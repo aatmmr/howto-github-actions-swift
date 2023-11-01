@@ -99,6 +99,6 @@ jobs:
       - name: Sign Archive
         run: |
           xcodebuild -exportArchive -archivePath $ARCHIVE_PATH \
-          -exportOptionsPlist
+          -exportOptionsPlist ExportOptions.plist
           -exportPath $EXPORT_PATH \
           -allowProvisioningUpdates
