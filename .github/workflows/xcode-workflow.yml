@@ -40,6 +40,7 @@ jobs:
   archive:
     name: Archive
     runs-on: macos-latest
+    needs: build
     env:
       DESTINATION: generic/platform=iOS
       SDK: iphoneos
