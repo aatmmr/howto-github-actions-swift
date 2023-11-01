@@ -17,7 +17,7 @@ jobs:
     name: Build & Test
     runs-on: macos-latest
     env:
-      DESTINATION: 'platform=iOS Simulator,name=iPhone 14,OS=16.2'
+      DESTINATION: platform=iOS Simulator,name=iPhone 14,OS=16.2
       SDK: iphoneos
     steps:
       - name: Checkout
@@ -28,7 +28,7 @@ jobs:
           -scheme $SCHEME \
           -configuration $CONFIGURATION \
           -sdk ${{ env.SDK }} \
-          -destination ${{ env.DESTINATION }} \
+          -destination "${{ env.DESTINATION }}" \
           CODE_SIGNING_ALLOWED=NO \
           build
       - name: Test
@@ -36,7 +36,7 @@ jobs:
           xcodebuild test -workspace $WORKSPACE \
           -scheme $SCHEME \
           -sdk ${{ env.SDK }} \
-          -destination ${{ env.DESTINATION }}
+          -destination "${{ env.DESTINATION }}"
   archive:
     name: Archive
     runs-on: macos-latest
