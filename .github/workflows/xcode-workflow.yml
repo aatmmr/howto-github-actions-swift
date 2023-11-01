@@ -8,8 +8,8 @@ on:
 env:
   SCHEME: demo-gh-actions-swift
   WORKSPACE: demo-gh-actions-swift.xcodeproj/project.xcworkspace
-  ARCHIVE_PATH: demo-gh-actions-swift.xcarchive
-  EXPORT_PATH: demo-gh-actions-swift.ipa
+  ARCHIVE_PATH: demo-github-actions-swift/demo-gh-actions-swift.xcarchive
+  EXPORT_PATH: demo-github-actions-swift/demo-gh-actions-swift.ipa
 
 jobs:
   build:
