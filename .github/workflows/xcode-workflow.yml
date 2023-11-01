@@ -14,11 +14,16 @@ jobs:
   build:
     name: Build
     runs-on: macos-latest
+    env:
+      DESTINATION: generic/platform=iOS
+      SDK: iphoneos
     steps:
       - run: |
           xcodebuild -workspace $WORKSPACE \
           -scheme $SCHEME \
           -configuration Release \
-          -sdk iphoneos \
-          -destination 'generic/platform=iOS' \
+          -sdk ${{ env.SDK }} \
+          -destination ${{ env.DESTINATION }} \
+          -archivePath $ARCHIVE_PATH \
+          CODE_SIGNING_ALLOWED=NO \
           build
