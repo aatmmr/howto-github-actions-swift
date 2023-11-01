@@ -17,7 +17,7 @@ jobs:
     name: Build & Test
     runs-on: macos-latest
     env:
-      DESTINATION: platform=iOS Simulator,name=iPhone 14,OS=16.2
+      DESTINATION: 'platform=iOS Simulator,name=iPhone 14,OS=16.2'
       SDK: iphoneos
     steps:
       - name: Checkout
