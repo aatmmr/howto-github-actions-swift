@@ -98,5 +98,4 @@ jobs:
         run: |
           xcodebuild -exportArchive -archivePath $ARCHIVE_PATH \
           -exportOptionsPlist ExportOptions.plist \
-          -exportPath $EXPORT_PATH \
-          -allowProvisioningUpdates
+          -exportPath $EXPORT_PATH
