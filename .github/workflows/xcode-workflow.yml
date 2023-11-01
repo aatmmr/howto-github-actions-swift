@@ -5,9 +5,20 @@ on:
     branches: xcode-workflow
   workflow_dispatch:
 
+env:
+  SCHEME: demo-gh-actions-swift
+  WORKSPACE: $SCHEME.xcworkspace
+  ARCHIVE_PATH: $SCHEME.xcarchive
+
 jobs:
   build:
     name: Build
     runs-on: macos-latest
     steps:
-      - run: echo "Building..."
+      - run: |
+          xcodebuild -workspace $WORKSPACE \
+          -scheme $SCHEME \
+          -configuration Release \
+          -sdk iphoneos \
+          -destination 'generic/platform=iOS' \
+          build
