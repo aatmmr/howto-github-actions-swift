@@ -8,8 +8,9 @@ on:
 env:
   SCHEME: demo-gh-actions-swift
   WORKSPACE: demo-gh-actions-swift.xcodeproj/project.xcworkspace
-  ARCHIVE_PATH: demo-github-actions-swift/demo-gh-actions-swift.xcarchive
-  EXPORT_PATH: demo-github-actions-swift/demo-gh-actions-swift.ipa
+  ARCHIVE_PATH: build/demo-gh-actions-swift.xcarchive
+  EXPORT_PATH: build/demo-gh-actions-swift.ipa
+  CONFIGURATION: Release
 
 jobs:
   build:
@@ -21,16 +22,33 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Build (No Codesign)
+      - name: Build (Unsigned)
         run: |
           xcodebuild -workspace $WORKSPACE \
           -scheme $SCHEME \
-          -configuration Release \
+          -configuration $CONFIGURATION \
+          -sdk ${{ env.SDK }} \
+          -destination ${{ env.DESTINATION }} \
+          CODE_SIGNING_ALLOWED=NO \
+          build
+  archive:
+    name: Archive
+    runs-on: macos-latest
+    env:
+      DESTINATION: generic/platform=iOS
+      SDK: iphoneos
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Build Archive
+        run: |
+          xcodebuild archive -workspace $WORKSPACE \
+          -scheme $SCHEME \
+          -configuration $CONFIGURATION \
           -sdk ${{ env.SDK }} \
           -destination ${{ env.DESTINATION }} \
           -archivePath $ARCHIVE_PATH \
-          CODE_SIGNING_ALLOWED=NO \
-          build
+          CODE_SIGNING_ALLOWED=NO
       - name: Create ExportOptions.plist
         run: |
           echo '<?xml version="1.0" encoding="UTF-8"?>' >> ExportOptions.plist
@@ -49,6 +67,3 @@ jobs:
           -exportOptionsPlist ExportOptions.plist \
           -exportPath $EXPORT_PATH \
           -allowProvisioningUpdates
-
-
-
