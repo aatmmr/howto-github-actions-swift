@@ -18,7 +18,7 @@ jobs:
       DESTINATION: generic/platform=iOS
       SDK: iphoneos
     steps:
-      - run: ls -la
+      - uses: actions/checkout@v4
       - run: |
           xcodebuild -workspace $WORKSPACE \
           -scheme $SCHEME \
