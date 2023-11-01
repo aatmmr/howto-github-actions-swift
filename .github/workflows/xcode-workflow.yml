@@ -18,8 +18,10 @@ jobs:
       DESTINATION: generic/platform=iOS
       SDK: iphoneos
     steps:
-      - uses: actions/checkout@v4
-      - run: |
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Build (No Codesign)
+        run: |
           xcodebuild -workspace $WORKSPACE \
           -scheme $SCHEME \
           -configuration Release \
