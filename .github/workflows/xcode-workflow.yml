@@ -9,6 +9,7 @@ env:
   SCHEME: demo-gh-actions-swift
   WORKSPACE: demo-gh-actions-swift.xcodeproj/project.xcworkspace
   ARCHIVE_PATH: demo-gh-actions-swift.xcarchive
+  EXPORT_PATH: demo-gh-actions-swift.ipa
 
 jobs:
   build:
@@ -30,3 +31,24 @@ jobs:
           -archivePath $ARCHIVE_PATH \
           CODE_SIGNING_ALLOWED=NO \
           build
+      - name: Create ExportOptions.plist
+        run: |
+          echo '<?xml version="1.0" encoding="UTF-8"?>' >> ExportOptions.plist
+          echo '<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">' >> ExportOptions.plist
+          echo '<plist version="1.0">' >> ExportOptions.plist
+          echo '<dict>' >> ExportOptions.plist
+          echo '  <key>method</key>' >> ExportOptions.plist
+          echo '  <string>app-store</string>' >> ExportOptions.plist
+          echo '  <key>teamID</key>' >> ExportOptions.plist
+          echo "  <string>${{ secrets.TEAM_ID }}</string>" >> ExportOptions.plist
+          echo '</dict>' >> ExportOptions.plist
+          echo '</plist>' >> ExportOptions.plist
+      - name: Sign Archive
+        run: |
+          xcodebuild -exportArchive -archivePath $ARCHIVE_PATH \
+          -exportOptionsPlist ExportOptions.plist \
+          -exportPath $EXPORT_PATH \
+          -allowProvisioningUpdates
+
+
+
