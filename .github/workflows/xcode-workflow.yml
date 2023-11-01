@@ -7,7 +7,7 @@ on:
 
 env:
   SCHEME: demo-gh-actions-swift
-  WORKSPACE: demo-gh-actions-swift.xcworkspace
+  WORKSPACE: demo-gh-actions-swift.xcodeproj/project.xcworkspace
   ARCHIVE_PATH: demo-gh-actions-swift.xcarchive
 
 jobs:
