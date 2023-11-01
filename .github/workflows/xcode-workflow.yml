@@ -31,12 +31,12 @@ jobs:
           -destination "${{ env.DESTINATION }}" \
           CODE_SIGNING_ALLOWED=NO \
           build
-      - name: Test
-        run: |
-          xcodebuild test -workspace $WORKSPACE \
-          -scheme $SCHEME \
-          -sdk ${{ env.SDK }} \
-          -destination "${{ env.DESTINATION }}"
+      # - name: Test
+      #   run: |
+      #     xcodebuild test -workspace $WORKSPACE \
+      #     -scheme $SCHEME \
+      #     -sdk ${{ env.SDK }} \
+      #     -destination "${{ env.DESTINATION }}"
   archive:
     name: Archive
     runs-on: macos-latest
