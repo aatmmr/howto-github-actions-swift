@@ -84,6 +84,10 @@ jobs:
           # Apply provisioning profile
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
+        
+          ls -la ~/Library/MobileDevice/Provisioning\ Profiles
+          ls -la $PP_PATH
+          cat $PP_PATH
       - name: Create ExportOptions.plist
         run: |
           echo '<?xml version="1.0" encoding="UTF-8"?>' >> ExportOptions.plist
