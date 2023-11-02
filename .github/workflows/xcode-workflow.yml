@@ -65,7 +65,7 @@ jobs:
         run: |
           # Create variables
           CERTIFICATE_PATH=$RUNNER_TEMP/build_certificate.p12
-          PP_PATH=$RUNNER_TEMP/build_pp.mobileprovision
+          PP_PATH=$RUNNER_TEMP/${{ vars.BUNDLE_ID }}.mobileprovision
           KEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db
 
           # Import certificate and provisioning profile from secrets
@@ -85,8 +85,11 @@ jobs:
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
         
+          echo "====== LS PROFLIES"
           ls -la ~/Library/MobileDevice/Provisioning\ Profiles
+          echo "====== LS PP_PATH"
           ls -la $PP_PATH
+          echo "====== CAT PP_PATH"
           cat $PP_PATH
       - name: Create ExportOptions.plist
         run: |
