@@ -85,13 +85,14 @@ jobs:
           # Apply provisioning profile
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
+
+          cd $RUNNER_TEMP
+          ls -la
       - name: Create ExportOptions.plist
         env:
           IOS_EXPORT_OPTION_PLIST_BASE64: ${{ secrets.IOS_EXPORT_OPTIONS_PLIST }}
         run: |
           echo -n "$IOS_EXPORT_OPTION_PLIST_BASE64" | base64 --decode -o ExportOptions.plist
-          echo $IOS_EXPORT_OPTION_PLIST_BASE64
-          cat ExportOptions.plist
           ls -la
       - name: Sign Archive
         run: |
