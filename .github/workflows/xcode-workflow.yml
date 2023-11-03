@@ -101,7 +101,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: demo-gh-actions-swift
-          path: demo-gh-actions-swift/$EXPORT_PATH
+          path: /build/demo-gh-actions-swift.ipa
   upload:
     name: Upload to App Store
     runs-on: macos-latest
