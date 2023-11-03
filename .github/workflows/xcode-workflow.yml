@@ -97,11 +97,15 @@ jobs:
           xcodebuild -exportArchive -archivePath $ARCHIVE_PATH \
           -exportOptionsPlist ExportOptions.plist \
           -exportPath $EXPORT_PATH
+
+          ls -la
+          cd build
+          ls -la
       - name: Upload Archive
         uses: actions/upload-artifact@v3
         with:
           name: demo-gh-actions-swift
-          path: demo-gh-actions-swift/build/demo-gh-actions-swift.ipa
+          path: build/demo-gh-actions-swift.ipa
   upload:
     name: Upload to App Store
     runs-on: macos-latest
