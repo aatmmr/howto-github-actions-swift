@@ -10,7 +10,7 @@ env:
   WORKSPACE: demo-gh-actions-swift.xcodeproj/project.xcworkspace
   ARCHIVE_PATH: build/demo-gh-actions-swift.xcarchive
   EXPORT_PATH: build/demo-gh-actions-swift.ipa
-  IOS_EXPORT_OPTION_PLIST: ./ExportOptions.plist
+  IOS_EXPORT_OPTION_PLIST: ExportOptions.plist
   CONFIGURATION: Release
 
 jobs:
@@ -100,5 +100,5 @@ jobs:
       - name: Sign Archive
         run: |
           xcodebuild -exportArchive -archivePath $ARCHIVE_PATH \
-          -exportOptionsPlist IOS_EXPORT_OPTION_PLIST \
+          -exportOptionsPlist $IOS_EXPORT_OPTION_PLIST \
           -exportPath $EXPORT_PATH
