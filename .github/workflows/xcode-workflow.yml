@@ -101,5 +101,21 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: demo-gh-actions-swift
-          path: $EXPORT_PATH
+          path: demo-gh-actions-swift/$EXPORT_PATH
+  upload:
+    name: Upload to App Store
+    runs-on: macos-latest
+    needs: archive
+    env:
+      USERNAME: ${{ secrets.APPLE_USERNAME }}
+      PASSWORD: ${{ secrets.APPLE_APP_PASSWORD }}
+    steps:
+      - name: Download Archive
+        uses: actions/download-artifact@v3
+        with:
+          name: demo-gh-actions-swift
+      - name: Upload to App Store
+        run: |
+          xcrun altool --upload-app -f demo-gh-actions-swift/demo-gh-actions-swift.ipa -u ${{ env.USERNAME }} -p ${{ env.PASSWORD }}
+      
       
