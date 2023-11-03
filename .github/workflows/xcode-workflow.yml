@@ -97,3 +97,9 @@ jobs:
           xcodebuild -exportArchive -archivePath $ARCHIVE_PATH \
           -exportOptionsPlist ExportOptions.plist \
           -exportPath $EXPORT_PATH
+      - name: Upload Archive
+        uses: actions/upload-artifact@v3
+        with:
+          name: demo-gh-actions-swift
+          path: $EXPORT_PATH
+      
