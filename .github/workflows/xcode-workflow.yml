@@ -24,19 +24,20 @@ jobs:
         uses: actions/checkout@v4
       - name: Build (Unsigned)
         run: |
-          xcodebuild -workspace $WORKSPACE \
+          xcodebuild build \
+          -workspace $WORKSPACE \
           -scheme $SCHEME \
           -configuration $CONFIGURATION \
           -sdk ${{ env.SDK }} \
           -destination "${{ env.DESTINATION }}" \
-          CODE_SIGNING_ALLOWED=NO \
-          build
-      # - name: Test
-      #   run: |
-      #     xcodebuild test -workspace $WORKSPACE \
-      #     -scheme $SCHEME \
-      #     -sdk ${{ env.SDK }} \
-      #     -destination "${{ env.DESTINATION }}"
+          CODE_SIGNING_ALLOWED=NO
+       #- name: Test
+       #  run: |
+       #    xcodebuild test \
+       #    -workspace $WORKSPACE \
+       #    -scheme $SCHEME \
+       #    -sdk ${{ env.SDK }} \
+       #    -destination "${{ env.DESTINATION }}"
   archive:
     name: Archive
     runs-on: macos-latest
@@ -49,7 +50,8 @@ jobs:
         uses: actions/checkout@v4
       - name: Build Archive
         run: |
-          xcodebuild archive -workspace $WORKSPACE \
+          xcodebuild archive \
+          -workspace $WORKSPACE \
           -scheme $SCHEME \
           -configuration $CONFIGURATION \
           -sdk ${{ env.SDK }} \
@@ -85,22 +87,16 @@ jobs:
           # Apply provisioning profile
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
-
-          cd $RUNNER_TEMP
-          ls -la
       - name: Create ExportOptions
         env:
           IOS_EXPORT_OPTIONS_PLIST_BASE64: ${{ secrets.IOS_EXPORT_OPTIONS_PLIST }}
         run: echo -n "$IOS_EXPORT_OPTIONS_PLIST_BASE64" | base64 --decode -o ExportOptions.plist
       - name: Sign Archive
         run: |
-          xcodebuild -exportArchive -archivePath $ARCHIVE_PATH \
+          xcodebuild -exportArchive \
+          -archivePath $ARCHIVE_PATH \
           -exportOptionsPlist ExportOptions.plist \
           -exportPath $EXPORT_PATH
-
-          ls -la
-          cd build
-          ls -la
       - name: Upload Archive
         uses: actions/upload-artifact@v3
         with:
