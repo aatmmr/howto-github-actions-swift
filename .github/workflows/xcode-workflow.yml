@@ -2,7 +2,7 @@ name: Xcode Workflow
 
 on:
   push:
-    branches: xcode-workflow
+    branches: main
   workflow_dispatch:
 
 env:
