@@ -121,4 +121,4 @@ jobs:
           name: demo-gh-actions-swift
       - name: Upload to App Store
         run: |
-          xcrun altool --upload-app --type ios -f demo-gh-actions-swift.ipa -u ${{ env.USERNAME }} -p ${{ env.PASSWORD }}
+          xcrun altool --upload-app --type ios -f demo-gh-actions-swift.ipa -u ${{ env.USERNAME }} -p ${{ env.APPLE_APP_SPECIFIC_PASSWORD }}
