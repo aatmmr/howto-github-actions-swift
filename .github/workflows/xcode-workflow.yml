@@ -7,6 +7,7 @@ on:
 
 env:
   SCHEME: demo-gh-actions-swift
+  PROJECT: demo-gh-actions-swift.xcodeproj
   WORKSPACE: demo-gh-actions-swift.xcodeproj/project.xcworkspace
   ARCHIVE_PATH: build/demo-gh-actions-swift.xcarchive
   EXPORT_PATH: build/demo-gh-actions-swift.ipa
@@ -31,14 +32,13 @@ jobs:
           -sdk ${{ env.SDK }} \
           -destination "${{ env.DESTINATION }}" \
           CODE_SIGNING_ALLOWED=NO
-      # DOES NOT WORK YET PROPERLY
-      #- name: Test
-      #  run: |
-      #   xcodebuild test \
-      #   -workspace $WORKSPACE \
-      #   -scheme $SCHEME \
-      #   -sdk ${{ env.SDK }} \
-      #   -destination "${{ env.DESTINATION }}"
+      - name: Test
+        run: |
+          xcodebuild test \
+          -project $PROJECT \
+          -scheme $SCHEME \
+          -sdk ${{ env.SDK }} \
+          -destination "${{ env.DESTINATION }}"
   archive:
     name: Archive
     runs-on: macos-latest
@@ -119,5 +119,3 @@ jobs:
         run: |
           ls -la
           xcrun altool --upload-app --type ios -f demo-gh-actions-swift.ipa -u ${{ env.USERNAME }} -p ${{ env.PASSWORD }}
-      
-      
